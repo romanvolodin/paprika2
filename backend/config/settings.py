@@ -1,10 +1,15 @@
 from pathlib import Path
 
+from environs import Env
+
+
+env = Env()
+env.read_env(override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = "django-insecure-&h+_+)zhss9(rlqut-gzgqm&(ypynqar4^#+2y+5tz+_+6ka0)"
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = env.str("PAPRIKA_SECRET_KEY")
+DEBUG = env.bool("PAPRIKA_DEBUG", False)
+ALLOWED_HOSTS = env.list("PAPRIKA_ALLOWED_HOSTS", [])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
