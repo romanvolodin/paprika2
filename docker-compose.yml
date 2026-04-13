@@ -1,0 +1,19 @@
+services:
+  paprika-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        DJANGO_ENV: development
+    volumes:
+      - ./backend:/code
+      - media_volume:/code/media
+    env_file:
+      - ./backend/.env.dev
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  media_volume:
