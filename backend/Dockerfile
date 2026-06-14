@@ -14,8 +14,7 @@ ENV DJANGO_ENV=${DJANGO_ENV} \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     UV_PROJECT_ENVIRONMENT=/usr/local \
-    UV_CACHE_DIR='/var/cache/uv' \
-    TINI_VERSION=v0.19.0
+    UV_CACHE_DIR='/var/cache/uv'
 
 SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
@@ -27,9 +26,6 @@ RUN apt-get update && apt-get upgrade -y \
         git \
         libpq-dev \
         ffmpeg \
-    && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
-    && curl -o /usr/local/bin/tini -sSLO "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${dpkgArch}" \
-    && chmod +x /usr/local/bin/tini \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 

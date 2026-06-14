@@ -18,6 +18,7 @@ services:
       dockerfile: Dockerfile
       args:
         DJANGO_ENV: development
+    init: true
     volumes:
       - ./backend:/code
       - media_volume:/code/media
